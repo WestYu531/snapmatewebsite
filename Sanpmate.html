@@ -3,303 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SnapMate - 摄影师匹配平台</title>
+    <title>Search Results - SnapMate</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet"></head>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
 <body class="bg-gray-100">
-
-    <!-- 导航栏 -->
+    <!-- 顶部导航栏 -->
     <nav class="bg-white shadow-md p-4 flex justify-between items-center">
-        <div>
-            <img src="/Users/westyu/Desktop/Sanp/logo.png" alt="SnapMate Logo" class="h-16 w-auto">
-        </div>
-        <div class="space-x-4">
-            <button id="need-btn" class="bg-orange-500 text-white px-4 py-2 rounded-md">I need photographer</button>
-            <button id="am-btn" class="bg-orange-500 text-white px-4 py-2 rounded-md">I am photographer</button>
-            <a href="#" class="bg-orange-500 text-white px-4 py-2 rounded-md">Our service</a>
-        </div>
-        <div>
-            <button class="bg-orange-500 text-white px-4 py-2 rounded-md">sign in</button>
-            <button class="bg-orange-500 text-white px-4 py-2 rounded-md">sign up</button>
-        </div>
+      <div>
+        <img src="/Users/westyu/Desktop/Sanp/logo.png" alt="SnapMate Logo" class="h-16 w-auto">
+    </div>
+      <h2 class="text-4xl font-bold text-orange-500 text-center" style="font-family: 'Playfair Display', serif;">
+          Choose your photographer
+      </h2>
+        <button onclick="window.location.href='Sanpmate.html'" class="bg-orange-500 text-white px-4 py-2 rounded-md">Back to Home</button>
     </nav>
 
-    <!-- "I need photographer" 界面 -->
-    <div id="need-section" class="block">
-        <section class="max-w-4xl mx-auto bg-white p-6 shadow-md rounded-lg mt-10">
-            <h2 class="text-4xl font-bold text-orange-500 text-center" style="font-family: 'Playfair Display', serif;">
-                Every moment of your life is worth being recorded
-            </h2>
-            <p class="text-lg text-orange-500 text-center mt-2" style="font-family: 'Cinzel', sans-serif;">
-                Book your personal photographer for a low price!
-            </p>
-            
-            <div class="mt-4 flex flex-col md:flex-row gap-4 items-end">
-                
-                <!-- 摄影类型（单选 下拉框） -->
-                <div class="w-full">
-                    <label class="block text-gray-700 text-sm font-semibold mb-1">Service Kind</label>
-                    <select id="photo-type" class="p-3 border rounded w-full h-12">
-                        <option>Photo</option>
-                        <option>Video</option>
-                        <option>Both</option>
-                    </select>
-                </div>
+    <div class="max-w-6xl mx-auto grid grid-cols-12 gap-6 p-6">
+        <!-- 左侧筛选栏 -->
+        <aside class="col-span-3 bg-white p-4 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold">Filters</h2>
 
-                <!-- 地址输入框 -->
-                <div class="w-full">
-                    <label class="block text-gray-700 text-sm font-semibold mb-1">Location</label>
-                    <input type="text" class="p-3 border rounded w-full h-12" placeholder="City,State,Zip">
-                </div>
+            <!-- Location 筛选 -->
+            <label class="block mt-3 font-medium">Location</label>
+            <input type="text" id="filter-location" class="p-2 border rounded w-full" placeholder="City, State, Zip">
 
-                <!-- 日期输入框 -->
-                <div class="w-full">
-                    <div class="flex justify-between items-center">
-                        <!-- Flexible Date Option -->
-                        <div class="flex items-center space-x-2">
-                            <input type="checkbox" id="flexible-dates" class="w-4 h-4 border-gray-400 rounded-md focus:ring-orange-500">
-                            <label for="flexible-dates" class="text-gray-700 text-sm">Flexible dates calendar</label>
-                        </div>
-                    </div>
-                    <input type="date" class="p-3 border rounded w-full h-12 text-gray-800 mt-1">
+            <!-- Device (多选) -->
+            <label class="block mt-3 font-medium">Device</label>
+            <div class="relative">
+                <button id="device-dropdown-btn" class="p-2 border rounded w-full bg-white text-left">Select Devices ▼</button>
+                <div id="device-dropdown" class="absolute hidden w-full bg-white border rounded mt-1 p-2 shadow-md z-10">
+                    <label class="block"><input type="checkbox" value="Digit camera"> Digit camera</label>
+                    <label class="block"><input type="checkbox" value="Film"> Film</label>
+                    <label class="block"><input type="checkbox" value="Instant photo"> Instant photo</label>
+                    <label class="block"><input type="checkbox" value="CCD"> CCD</label>
+                    <label class="block"><input type="checkbox" value="Video camera"> Video camera</label>
+                    <label class="block"><input type="checkbox" value="Drone"> Drone</label>
                 </div>
             </div>
 
-            <!-- 摄影设备多选 -->
-            <div class="mt-4">
-                <!-- 标题 & 全选 -->
-                <div class="flex items-center justify-between">
-                    <label class="block text-gray-700 text-sm font-semibold">Choice Device</label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" id="select-all-devices" class="w-4 h-4 border-gray-400 rounded-md">
-                        <span class="text-gray-700 text-sm">Select All</span>
-                    </label>
-                </div>
-
-                <!-- 设备复选框 -->
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="equipment" value="Digit camera" class="device-checkbox w-4 h-4 border-gray-400 rounded-md">
-                        <span class="text-gray-700 text-sm">Digit camera</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="equipment" value="Film" class="device-checkbox w-4 h-4 border-gray-400 rounded-md">
-                        <span class="text-gray-700 text-sm">Film</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="equipment" value="Instant photo" class="device-checkbox w-4 h-4 border-gray-400 rounded-md">
-                        <span class="text-gray-700 text-sm">Instant photo</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="equipment" value="CCD" class="device-checkbox w-4 h-4 border-gray-400 rounded-md">
-                        <span class="text-gray-700 text-sm">CCD</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="equipment" value="Video camera" class="device-checkbox w-4 h-4 border-gray-400 rounded-md">
-                        <span class="text-gray-700 text-sm">Video camera</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="equipment" value="Drone" class="device-checkbox w-4 h-4 border-gray-400 rounded-md">
-                        <span class="text-gray-700 text-sm">Drone</span>
-                    </label>
+            <!-- Shooting Scene (多选) -->
+            <label class="block mt-3 font-medium">Shooting Scene</label>
+            <div class="relative">
+                <button id="scene-dropdown-btn" class="p-2 border rounded w-full bg-white text-left">Select Scenes ▼</button>
+                <div id="scene-dropdown" class="absolute hidden w-full bg-white border rounded mt-1 p-2 shadow-md z-10">
+                    <label class="block"><input type="checkbox" value="Party"> Party</label>
+                    <label class="block"><input type="checkbox" value="Travel"> Travel</label>
+                    <label class="block"><input type="checkbox" value="Graduation"> Graduation</label>
+                    <label class="block"><input type="checkbox" value="Outdoors"> Outdoors</label>
                 </div>
             </div>
 
-
-
-
-
-
-
-
-            <!-- 搜索按钮 -->
-            <div class="mt-4">
-                
-                <button onclick="window.location.href='results.html'" class="bg-orange-500 text-white px-6 py-3 rounded w-full hover:bg-orange-600">Search</button>
+            <!-- Price Range (多选) -->
+            <label class="block mt-3 font-medium">Price Range</label>
+            <div class="relative">
+                <button id="price-dropdown-btn" class="p-2 border rounded w-full bg-white text-left">Select Price ▼</button>
+                <div id="price-dropdown" class="absolute hidden w-full bg-white border rounded mt-1 p-2 shadow-md z-10">
+                    <label class="block"><input type="checkbox" value="50"> Under $50</label>
+                    <label class="block"><input type="checkbox" value="100"> Under $50</label>
+                    <label class="block"><input type="checkbox" value="150"> Under $60</label>
+                    <label class="block"><input type="checkbox" value="200"> Under $40</label>
+                </div>
             </div>
-        </section>
-        <!-- 房源展示 -->
-    <section class="max-w-6xl mx-auto mt-10">
+        </aside>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          
-          <!-- 房源卡片 1 -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <img src="/Users/westyu/Desktop/Sanp/digital.jpg" alt="房源图片" class="w-full h-48 object-cover">
-            <div class="p-4">
-                <span class="bg-orange-500 text-white px-2 py-1 text-xs rounded">⭐ 4.98</span>
-                <h3 class="text-lg font-semibold mt-2"> Name: Sky Yang</h3>
-                <p class="text-gray-600">Price: 40$/h</p>
-                <p class="text-gray-800 font-bold mt-1">Location: Seattle</p>
-                <p class="text-gray-500 text-sm">Device: FUJI XT4</p>
+        <!-- 中间摄影师列表 -->
+        <main class="col-span-9 bg-white p-4 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold">Matching Photographers</h2>
+            <div id="results-container" class="mt-4 space-y-4">
+                <!-- 搜索结果将在这里动态填充 -->
             </div>
-          </div>
-
-          <!-- 房源卡片 2 -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <img src="/Users/westyu/Desktop/Sanp/film.jpg" alt="房源图片" class="w-full h-48 object-cover">
-            <div class="p-4">
-                <span class="bg-orange-500 text-white px-2 py-1 text-xs rounded">⭐ 4.98</span>
-                <h3 class="text-lg font-semibold mt-2"> Name: Simon Yan</h3>
-                <p class="text-gray-600">Price: 50$/h</p>
-                <p class="text-gray-800 font-bold mt-1">Location: Seattle</p>
-                <p class="text-gray-500 text-sm">Device: Canon</p>
-            </div>
-          </div>
-          <!-- 房源卡片 s -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <img src="/Users/westyu/Desktop/Sanp/pocket.png" alt="房源图片" class="w-full h-48 object-cover">
-            <div class="p-4">
-                <span class="bg-orange-500 text-white px-2 py-1 text-xs rounded">⭐ 4.98</span>
-                <h3 class="text-lg font-semibold mt-2"> Name: West Yu</h3>
-                <p class="text-gray-600">Price: 50$/h</p>
-                <p class="text-gray-800 font-bold mt-1">Location: Davis</p>
-                <p class="text-gray-500 text-sm">Device: Pocket3</p>
-            </div>
-          </div>
-
-          <!-- 房源卡片 4 -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <img src="/Users/westyu/Desktop/Sanp/instant.jpg" alt="房源图片" class="w-full h-48 object-cover">
-            <div class="p-4">
-                <span class="bg-orange-500 text-white px-2 py-1 text-xs rounded">⭐ 4.98</span>
-                <h3 class="text-lg font-semibold mt-2"> Name: Klaus Shen</h3>
-                <p class="text-gray-600">Price: 40$/h</p>
-                <p class="text-gray-800 font-bold mt-1">Location: Davis</p>
-                <p class="text-gray-500 text-sm">Device: Polaroid</p>
-            </div>
-          </div>
-      </div>
-  </section>
+        </main>
     </div>
 
-    <!-- "I am photographer" 界面（默认隐藏） -->
-    <div id="am-section" class="hidden">
-      <section class="max-w-4xl mx-auto bg-white p-6 shadow-md rounded-lg mt-10">
-          <h2 class="text-5xl font-bold text-orange-500 text-center" style="font-family: 'Playfair Display', serif;">
-            Everyone can be a photographer
-          </h2>
-          <p class="text-lg text-orange-500 text-center mt-2" style="font-family: 'Cinzel', sans-serif;">
-            Take out your camera and start earning！
-          </p>
-          <div class="mt-6 flex flex-col md:flex-row gap-4">
-              <input type="text" class="p-3 border rounded w-full h-12" placeholder="Input your Name">
-              <input type="text" class="p-3 border rounded w-full h-12" placeholder="Input your Email">
-          </div>
-          <div class="mt-4">
-              <button class="bg-orange-500 text-white px-6 py-3 rounded w-full hover:bg-orange-600">Become our photographer</button>
-          </div>
-      </section>
-
-      <!-- 房源展示 -->
-<section class="max-w-6xl mx-auto mt-10">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        <!-- 房源展示卡1 -->
-        <div class="bg-gray-100 p-6 rounded-lg shadow-md flex items-start space-x-4 max-w-3xl mx-auto">
-    
-            <!-- 左侧房源图片（圆形） -->
-            <div class="w-20 h-20 rounded-full overflow-hidden">
-                <img src="/Users/westyu/Desktop/Sanp/sky.jpeg" alt="房源图片" class="w-full h-full object-cover">
-            </div>
-
-            <!-- 右侧文本信息 -->
-            <div class="flex-1">
-                <p class="font-bold text-lg text-gray-900">Members' review</p>
-                <p class="text-gray-700 italic">“This website helps me earn a lot in my free time.”</p>
-                <p class="text-gray-600 mt-2 font-semibold">- Location: Seattle, Device: FUJI XT4</p>
-            </div>
-
-        </div>
-  
-        <!-- 房源展示卡2 -->
-        <div class="bg-gray-100 p-6 rounded-lg shadow-md flex items-start space-x-4 max-w-3xl mx-auto">
-    
-            <!-- 左侧房源图片（圆形） -->
-            <div class="w-20 h-20 rounded-full overflow-hidden">
-                <img src="/Users/westyu/Desktop/Sanp/west.jpeg" alt="房源图片" class="w-full h-full object-cover">
-            </div>
-
-            <!-- 右侧文本信息 -->
-            <div class="flex-1">
-                <p class="font-bold text-lg text-gray-900">Members' review</p>
-                <p class="text-gray-700 italic">“This website helps me earn a lot in my free time.”</p>
-                <p class="text-gray-600 mt-2 font-semibold">- Location: Davis, Device: Pocket3, instant camera</p>
-            </div>
-
-        </div>
-        
-        <!-- 房源展示卡3 -->
-        <div class="bg-gray-100 p-6 rounded-lg shadow-md flex items-start space-x-4 max-w-3xl mx-auto">
-    
-            <!-- 左侧房源图片（圆形） -->
-            <div class="w-20 h-20 rounded-full overflow-hidden">
-                <img src="/Users/westyu/Desktop/Sanp/simon.jpeg" alt="房源图片" class="w-full h-full object-cover">
-            </div>
-
-            <!-- 右侧文本信息 -->
-            <div class="flex-1">
-                <p class="font-bold text-lg text-gray-900">Members' review</p>
-                <p class="text-gray-700 italic">“This website helps me earn a lot in my free time.”</p>
-                <p class="text-gray-600 mt-2 font-semibold">- Location: Seattle, Device: Canon Films</p>
-            </div>
-
-        </div>
-        
-        <!-- 房源展示卡4 -->
-        <div class="bg-gray-100 p-6 rounded-lg shadow-md flex items-start space-x-4 max-w-3xl mx-auto">
-    
-            <!-- 左侧房源图片（圆形） -->
-            <div class="w-20 h-20 rounded-full overflow-hidden">
-                <img src="/Users/westyu/Desktop/Sanp/klaus.jpeg" alt="房源图片" class="w-full h-full object-cover">
-            </div>
-
-            <!-- 右侧文本信息 -->
-            <div class="flex-1">
-                <p class="font-bold text-lg text-gray-900">Members' review</p>
-                <p class="text-gray-700 italic">“This website helps me earn a lot in my free time.”</p>
-                <p class="text-gray-600 mt-2 font-semibold">- Location: Davis, Device: Polaroid</p>
-            </div>
-
-        </div>
-  
-    </div>
-  </section>
-
-    <!-- JavaScript 交互 -->
     <script>
-        document.getElementById("need-btn").addEventListener("click", function() {
-            document.getElementById("need-section").classList.remove("hidden");
-            document.getElementById("am-section").classList.add("hidden");
-        });
+        document.addEventListener("DOMContentLoaded", function() {
+            let photographers = [
+                { name: "Sky Yang", location: "Seattle", device: ["Digit camera"], scene: "Travel", price: 40, avatar: "/Users/westyu/Desktop/Sanp/sky.jpeg",portfolio: ["/Users/westyu/Desktop/Sanp/_DSC0101.JPG", "/Users/westyu/Desktop/Sanp/_DSC0055.JPG"]},
+                { name: "Simon Yan", location: "Seattle", device: ["Film"], scene: "Party", price: 50, avatar: "/Users/westyu/Desktop/Sanp/Simon.jpeg", portfolio: ["/Users/westyu/Desktop/Sanp/_DSC0014.JPG", "/Users/westyu/Desktop/Sanp/_DSC0012.JPG"]},
+                { name: "West Yu", location: "Davis", device: ["Instant photo"], scene: "Graduation", price: 50, avatar: "/Users/westyu/Desktop/Sanp/west.jpeg", portfolio: ["/Users/westyu/Desktop/Sanp/_DSC9659.jpeg", "/Users/westyu/Desktop/Sanp/_DSC9482.jpeg"] },
+                { name: "Klaus Shen", location: "Davis", device: ["Digit camera"], scene: "Outdoors", price: 65, avatar: "/Users/westyu/Desktop/Sanp/Klaus.jpeg", portfolio: ["/Users/westyu/Desktop/Sanp/_DSC0067.JPG", "/Users/westyu/Desktop/Sanp/_DSC0050.JPG"] },
+                { name: "Jade Gong", location: "Los Angeles", device: ["Digit camera"], scene: "Travel", price: 60, avatar: "/Users/westyu/Desktop/Sanp/jade.jpg", portfolio: ["/Users/westyu/Desktop/Sanp/jade1.jpg", "/Users/westyu/Desktop/Sanp/jade2.jpg"] },
+                { name: "Lisa Li", location: "New Yoryk city", device: ["Digit camera"], scene: "Any type", price: 60, avatar: "/Users/westyu/Desktop/Sanp/lisa.png", portfolio: ["/Users/westyu/Desktop/Sanp/lisa3.jpg", "/Users/westyu/Desktop/Sanp/lisa4.jpg"] }
+            ];
+        
 
-        document.getElementById("am-btn").addEventListener("click", function() {
-            document.getElementById("am-section").classList.remove("hidden");
-            document.getElementById("need-section").classList.add("hidden");
-        });
+            function getCheckedValues(dropdownId) {
+                return Array.from(document.querySelectorAll(`#${dropdownId} input:checked`)).map(input => input.value);
+            }
 
-        document.getElementById("search-btn").addEventListener("click", function() {
-            let type = document.getElementById("photo-type").value;
-            let locationInput = document.getElementById("search-location").value.toLowerCase().trim();
-            let selectedDevices = Array.from(document.querySelectorAll("input[name='equipment']:checked")).map(e => e.value.toLowerCase());
+            function filterPhotographers() {
+                let location = document.getElementById("filter-location").value.toLowerCase().trim();
+                let selectedDevices = getCheckedValues("device-dropdown");
+                let selectedScenes = getCheckedValues("scene-dropdown");
+                let selectedPrices = getCheckedValues("price-dropdown").map(p => parseInt(p));
 
-            // 构造 URL 参数
-            let params = new URLSearchParams();
-            params.append("type", type);
-            params.append("location", locationInput);
-            selectedDevices.forEach(device => params.append("device", device));
+                let filteredPhotographers = photographers.filter(p => {
+                    let matchLocation = location ? p.location.toLowerCase().includes(location) : true;
+                    let matchDevice = selectedDevices.length ? selectedDevices.some(device => p.device.includes(device)) : true;
+                    let matchScene = selectedScenes.length ? selectedScenes.includes(p.scene) : true;
+                    let matchPrice = selectedPrices.length ? selectedPrices.some(price => p.price <= price) : true;
+                    return matchLocation && matchDevice && matchScene && matchPrice;
+                });
 
-            // 跳转到新的搜索结果页面
-            window.location.href = "results.html?" + params.toString();
-        });
-        document.getElementById("select-all-devices").addEventListener("change", function() {
-            let checkboxes = document.querySelectorAll(".device-checkbox");
-            checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+                let resultsContainer = document.getElementById("results-container");
+                resultsContainer.innerHTML = "";
+
+                if (filteredPhotographers.length === 0) {
+                    resultsContainer.innerHTML = `<p class="text-center text-gray-600 text-lg">No photographers found.</p>`;
+                } else {
+                    filteredPhotographers.forEach(p => {
+                        let card = `
+                            <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+                                <!-- 左侧：头像和信息 -->
+                                <div class="flex items-center space-x-4">
+                                    <img src="${p.avatar}" alt="${p.name}" class="w-16 h-16 rounded-full object-cover border border-gray-300">
+
+                                    <div class="flex-1">
+                                        <a href="${p.name.toLowerCase().replace(/\s+/g, '-')}.html"
+                                            class="bg-orange-500 text-white px-3 py-1 rounded-md text-sm font-semibold shadow-md hover:bg-orange-600 transition">
+                                                ${p.name}
+                                        </a>
+                                        <p class="text-orange-600">Price: $${p.price}/h</p>
+                                        <p class="text-orange-800 font-bold">${p.scene}</p>
+                                        <p class="text-orange-500 text-sm">Device: ${p.device.join(", ")}</p>
+                                    </div>
+                                </div>
+                                <!-- 右侧：作品集 -->
+                                <div class="flex space-x-2 max-h-32 overflow-hidden">
+                                    ${p.portfolio.map(img => `<img src="${img}" class="w-auto max-h-32 rounded-lg object-cover">`).join("")}
+                                </div>
+                            </div>
+                        `;
+                        resultsContainer.innerHTML += card;
+                    });
+                }
+            }
+        
+
+
+            function setupDropdown(buttonId, dropdownId) {
+                document.getElementById(buttonId).addEventListener("click", function() {
+                    document.getElementById(dropdownId).classList.toggle("hidden");
+                });
+
+                document.querySelectorAll(`#${dropdownId} input`).forEach(checkbox => {
+                    checkbox.addEventListener("change", function() {
+                        let selectedValues = getCheckedValues(dropdownId);
+                        document.getElementById(buttonId).innerText = selectedValues.length ? selectedValues.join(", ") + " ▼" : "Select Options ▼";
+                        filterPhotographers();
+                    });
+                });
+            }
+
+            setupDropdown("device-dropdown-btn", "device-dropdown");
+            setupDropdown("scene-dropdown-btn", "scene-dropdown");
+            setupDropdown("price-dropdown-btn", "price-dropdown");
+
+            document.getElementById("filter-location").addEventListener("input", filterPhotographers);
+
+            filterPhotographers();
         });
     </script>
-
+    <!-- Swiper.js JavaScript -->
 </body>
 </html>
