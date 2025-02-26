@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Page - SnapMate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- 顶部导航栏 -->
+    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+        <div>
+            <img src="/Users/westyu/Desktop/Sanp/logo.png" alt="SnapMate Logo" class="h-16 w-auto">
+        </div>
+        <h2 class="text-4xl font-bold text-orange-500 text-center" style="font-family: 'Playfair Display', serif;">
+            View Your Photographer
+        </h2>
+        <button onclick="window.location.href='results.html'" class="bg-orange-500 text-white px-4 py-2 rounded-md">Back to Photographers</button>
+    </nav>
+
+    <div class="container mx-auto bg-white p-6 rounded-lg shadow-lg mt-6 max-w-5xl relative">
+        <!-- 个人信息 -->
+        <div class="flex items-center space-x-6">
+            <img src="/Users/westyu/Desktop/Sanp/west.jpeg" alt="服务提供者头像" class="w-24 h-24 rounded-full object-cover">
+            <div>
+                <h2 class="text-3xl font-semibold text-orange-600">West Yu</h2>
+                <p>⭐⭐⭐⭐⭐ (60 reviews)</p>
+                <p class="text-gray-600">Davis, CA</p>
+            </div>
+            <a href="chat.html" class="bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:bg-orange-600">
+                contact West
+            </a>
+        </div>
+
+         <!-- 服务信息 -->
+         <div class="mt-6">
+            <h3 class="text-xl font-semibold">Service Information</h3>
+            <p class="text-gray-700">UW student with great photography experience, also offering city tours in Seattle.</p>
+            <p><strong>Device:</strong> Instax mini99, DJI pocket3</p>
+            <p><strong>Price:</strong> $50/hour $170/half day</p>
+            <p><strong>Photography Scene:</strong> Any type</p>
+        </div>
+
+        <!-- 右上角预约日历 -->
+        <div class="absolute top-0 right-4 bg-white p-2 rounded-lg shadow-lg w-64 z-50">
+            <h3 id="calendar-title" class="text-lg font-bold mb-2"></h3>
+            <div class="grid grid-cols-7 gap-1 text-center" id="calendar-grid"></div>
+        </div>
+
+    
+
+
+
+        <!-- 作品集 -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+            <img src="/Users/westyu/Desktop/Sanp/_DSC9659.jpeg" alt="作品1" class="rounded-md object-cover">
+            <img src="/Users/westyu/Desktop/Sanp/_DSC9482.jpeg" alt="作品2" class="rounded-md object-cover">
+            <img src="./images/dog3.jpg" alt="作品3" class="rounded-md object-cover">
+            <img src="./images/dog4.jpg" alt="作品4" class="rounded-md object-cover">
+        </div>
+
+        <!-- 用户评价 -->
+        <section class="max-w-6xl mx-auto mt-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- 用户评价1 -->
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md flex items-start space-x-4 max-w-3xl mx-auto">
+            
+                    <!-- 左侧用户头像（圆形） -->
+                    <div class="w-20 h-20 rounded-full overflow-hidden">
+                        <img src="/Users/westyu/Desktop/Sanp/hzx.png" alt="用户头像" class="w-full h-full object-cover">
+                    </div>
+        
+                    <!-- 右侧文本信息 -->
+                    <div class="flex-1">
+                        <p class="font-bold text-lg text-gray-900">User's review</p>
+                        <p class="text-gray-700 italic">“Sky taught me how do the position, which really helped me a lot to get good photos”</p>
+                       
+                    </div>
+        
+                </div>
+        <!--用户评价2-->
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md flex items-start space-x-4 max-w-3xl mx-auto">
+    
+                    <!-- 左侧用户头像（圆形） -->
+                    <div class="w-20 h-20 rounded-full overflow-hidden">
+                        <img src="/Users/westyu/Desktop/Sanp/klaus.jpeg" alt="用户头像" class="w-full h-full object-cover">
+                    </div>
+
+                    <!-- 右侧文本信息 -->
+                    <div class="flex-1">
+                        <p class="font-bold text-lg text-gray-900">User's review</p>
+                        <p class="text-gray-700 italic">“Beside create good photos, sky showed around many good places in Seattle.”</p>
+                        
+                    </div>
+
+                </div>
+
+                 <!-- 用户评价3 -->
+        <div class="bg-gray-100 p-6 rounded-lg shadow-md flex items-start space-x-4 max-w-3xl mx-auto">
+    
+            <!-- 左侧用户头像（圆形） -->
+            <div class="w-20 h-20 rounded-full overflow-hidden">
+                <img src="/Users/westyu/Desktop/Sanp/sky.jpeg" alt="用户头像" class="w-full h-full object-cover">
+            </div>
+
+            <!-- 右侧文本信息 -->
+            <div class="flex-1">
+                <p class="font-bold text-lg text-gray-900">User's review</p>
+                <p class="text-gray-700 italic">“Sky is the most patient photographer I ever worked with.”</p>
+                
+            </div>
+
+        </div>
+        <!-- 用户评价4 -->
+        <div class="bg-gray-100 p-6 rounded-lg shadow-md flex items-start space-x-4 max-w-3xl mx-auto">
+    
+            <!-- 左侧用户头像（圆形） -->
+            <div class="w-20 h-20 rounded-full overflow-hidden">
+                <img src="/Users/westyu/Desktop/Sanp/Simon.jpeg" alt="用户头像" class="w-full h-full object-cover">
+            </div>
+
+            <!-- 右侧文本信息 -->
+            <div class="flex-1">
+                <p class="font-bold text-lg text-gray-900">User's review</p>
+                <p class="text-gray-700 italic">“I choosed half day, Sky worth much more than 170$/ half day”</p>
+                
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+   
+   
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const calendarGrid = document.getElementById("calendar-grid");
+            const calendarTitle = document.getElementById("calendar-title");
+
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const currentMonth = today.getMonth();
+            const currentDay = today.getDate();
+            
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            calendarTitle.innerText = `${monthNames[currentMonth]} ${currentYear}`;
+
+            // 获取本月第一天是星期几
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            // 生成星期标题
+            const weekDays = ["S", "M", "T", "W", "R", "F", "S"];
+            weekDays.forEach(day => {
+                const div = document.createElement("div");
+                div.classList.add("text-gray-500");
+                div.innerText = day;
+                calendarGrid.appendChild(div);
+            });
+
+            // 生成空白占位
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDiv = document.createElement("div");
+                emptyDiv.classList.add("text-gray-300");
+                calendarGrid.appendChild(emptyDiv);
+            }
+
+            // 生成日期
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateDiv = document.createElement("div");
+                dateDiv.innerText = day;
+                dateDiv.classList.add("text-gray-500", "rounded-md", "p-1", "text-center", "text-xs", "w-6", "h-6");
+
+                // 判断是否是过去的日期
+                if (day < currentDay) {
+                    dateDiv.classList.add("bg-gray-200", "cursor-not-allowed");
+                } else {
+                    dateDiv.classList.add("bg-green-400", "text-white", "cursor-pointer", "select-date");
+                }
+
+                calendarGrid.appendChild(dateDiv);
+            }
+
+            // 监听可预约日期的点击事件
+            document.querySelectorAll('.select-date').forEach(date => {
+                date.addEventListener('click', function () {
+                    document.querySelectorAll('.select-date').forEach(d => d.classList.remove('bg-blue-500'));
+                    this.classList.add('bg-blue-500');
+                    alert('You selected: ' + this.innerText);
+                });
+            });
+        });
+    </script>
+
+
+</body>
+</html>

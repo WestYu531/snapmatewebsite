@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Photographers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex h-screen">
+
+    <!-- 左侧栏 (包含 Logo + 摄影师列表) -->
+    <aside class="w-64 bg-white shadow-lg border-r flex flex-col">
+        <!-- Logo -->
+        <div class="p-4 border-b flex items-center justify-center">
+            <img src="/Users/westyu/Desktop/Sanp/logo.png" alt="SnapMate Logo" class="h-18 w-auto">
+        </div>
+
+        <!-- 摄影师列表 -->
+        <h3 class="text-lg font-semibold p-4 border-b">Photographers</h3>
+        <ul id="photographerList" class="p-2 space-y-2 flex-1 overflow-y-auto">
+            <li onclick="selectPhotographer('Sky Yang', '/Users/westyu/Desktop/Sanp/sky.jpeg', '⭐⭐⭐⭐⭐ (60 reviews)', 'Seattle-based photographer with portrait and event expertise.', '$50/hour | $170/half day', 'FUJI XT4')" class="cursor-pointer flex items-center p-2 hover:bg-gray-100 rounded">
+                <img src="/Users/westyu/Desktop/Sanp/sky.jpeg" class="w-12 h-12 rounded-full mr-2">
+                <span class="font-semibold">Sky Yang</span>
+            </li>
+            <li onclick="selectPhotographer('West Yu', '/Users/westyu/Desktop/Sanp/west.jpeg', '⭐⭐⭐⭐ (45 reviews)', 'Specializes in Instant photo and vlog', '$50/hour | $170/half day', 'Instax mini99 DJI pocket3')" class="cursor-pointer flex items-center p-2 hover:bg-gray-100 rounded">
+                <img src="/Users/westyu/Desktop/Sanp/west.jpeg" class="w-12 h-12 rounded-full mr-2">
+                <span class="font-semibold">West Yu</span>
+            </li>
+            <li onclick="selectPhotographer('Simon Yan', '/Users/westyu/Desktop/Sanp/Simon.jpeg', '⭐⭐⭐⭐⭐ (80 reviews)', 'Specializes in film photograph beased in Seattle .', '$60/hour | $180/half day', 'Canon')" class="cursor-pointer flex items-center p-2 hover:bg-gray-100 rounded">
+                <img src="/Users/westyu/Desktop/Sanp/Simon.jpeg" class="w-12 h-12 rounded-full mr-2">
+                <span class="font-semibold">Simon Yan</span>
+            </li>
+            <li onclick="selectPhotographer('Jade Gong', '/Users/westyu/Desktop/Sanp/jade.jpg', '⭐⭐⭐⭐⭐ (60 reviews)', 'SLandscape and travel photographer based in LA', '$60/hour | $200/half day', 'Sony A7CII')" class="cursor-pointer flex items-center p-2 hover:bg-gray-100 rounded">
+                <img src="/Users/westyu/Desktop/Sanp/jade.jpg" class="w-12 h-12 rounded-full mr-2">
+                <span class="font-semibold">Jade Gong</span>
+            </li>
+            <li onclick="selectPhotographer('Klaus Shen', '/Users/westyu/Desktop/Sanp/Klaus.jpeg', '⭐⭐⭐⭐ (45 reviews)', 'Have good experience to create good outdoor photos.', '$65/hour | $180/half day', 'Polaroid CanonR5')" class="cursor-pointer flex items-center p-2 hover:bg-gray-100 rounded">
+                <img src="/Users/westyu/Desktop/Sanp/Klaus.jpeg" class="w-12 h-12 rounded-full mr-2">
+                <span class="font-semibold">Klaus Shen</span>
+            </li>
+            <li onclick="selectPhotographer('Lisa Li', '/Users/westyu/Desktop/Sanp/lisa.png', '⭐⭐⭐⭐⭐ (80 reviews)', 'the most patient photographer, and have various cameras.', '$75/hour | $250/half day', 'FUJIX100vi DJIpocket3 CCD')" class="cursor-pointer flex items-center p-2 hover:bg-gray-100 rounded">
+                <img src="/Users/westyu/Desktop/Sanp/lisa.png" class="w-12 h-12 rounded-full mr-2">
+                <span class="font-semibold">Lisa Li</span>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- 右侧聊天区域 -->
+    <div class="flex-1 flex flex-col h-full bg-white shadow-lg">
+        <!-- 顶部导航栏 -->
+        <nav class="bg-orange-500 text-white p-4 flex justify-between items-center">
+            <button onclick="window.history.back()" class="bg-white text-orange-500 px-4 py-2 rounded-md">
+                ← Back
+            </button>
+            <h2 id="chatTitle" class="text-xl font-bold">Chat with Sky</h2>
+            <div></div> <!-- 占位，让标题居中 -->
+        </nav>
+
+        <!-- 聊天窗口 -->
+        <div id="chatContainer" class="flex-1 flex flex-col p-4 overflow-y-auto">
+            <div id="chatMessages" class="space-y-2"></div>
+        </div>
+
+        <!-- 底部输入框 -->
+        <div class="bg-gray-200 p-4 border-t flex">
+            <input id="chatInput" type="text" class="flex-1 border rounded p-2 text-sm" placeholder="Type a message...">
+            <button onclick="sendMessage()" class="ml-2 bg-orange-500 text-white px-3 py-2 rounded shadow-md hover:bg-orange-600">
+                Send
+            </button>
+        </div>
+
+        <!-- 摄影师详细信息 -->
+        <div id="photographerDetails" class="p-4 border-t bg-gray-100">
+            <h3 class="text-lg font-semibold text-gray-800">Photographer Info</h3>
+            <div class="flex items-center space-x-4 mt-2">
+                <img id="photographerAvatar" src="/Users/westyu/Desktop/Sanp/sky.jpeg" class="w-16 h-16 rounded-full">
+                <div>
+                    <p id="photographerName" class="font-semibold">Sky Yang</p>
+                    <p id="photographerRating">⭐⭐⭐⭐⭐ (60 reviews)</p>
+                </div>
+            </div>
+            <p id="photographerBio" class="text-sm text-gray-700 mt-2">Seattle-based photographer with portrait and event expertise.</p>
+            <p id="photographerPrice" class="text-sm"><strong>Price:</strong> $50/hour | $170/half day</p>
+            <p id="photographerDevice" class="text-sm"><strong>Device:</strong> FUJI XT4</p>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById("chatInput");
+            const message = input.value.trim();
+            if (message === "") return;
+
+            const chatMessages = document.getElementById("chatMessages");
+
+            // 用户消息
+            const userMessage = document.createElement("div");
+            userMessage.className = "bg-blue-100 text-blue-900 p-2 rounded-lg self-end text-sm w-fit max-w-xs ml-auto";
+            userMessage.innerText = message;
+            chatMessages.appendChild(userMessage);
+
+            // 模拟摄影师回复
+            setTimeout(() => {
+                const replyMessage = document.createElement("div");
+                replyMessage.className = "bg-gray-200 text-gray-800 p-2 rounded-lg self-start text-sm w-fit max-w-xs";
+                replyMessage.innerText = document.getElementById("chatTitle").innerText + ": Thanks for reaching out!";
+                chatMessages.appendChild(replyMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+
+            // 清空输入框
+            input.value = "";
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function selectPhotographer(name, avatar, rating, bio, price, device) {
+            document.getElementById("chatTitle").innerText = `Chat with ${name}`;
+            document.getElementById("photographerName").innerText = name;
+            document.getElementById("photographerAvatar").src = avatar;
+            document.getElementById("photographerRating").innerText = rating;
+            document.getElementById("photographerBio").innerText = bio;
+            document.getElementById("photographerPrice").innerHTML = `<strong>Price:</strong> ${price}`;
+            document.getElementById("photographerDevice").innerHTML = `<strong>Device:</strong> ${device}`;
+            document.getElementById("chatMessages").innerHTML = `<div class="text-gray-600 text-center italic">Say hi to ${name}!</div>`;
+        }
+    </script>
+
+</body>
+</html>

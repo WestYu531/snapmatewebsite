@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - SnapMate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- 顶部导航栏 -->
+    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+      <div>
+        <img src="/Users/westyu/Desktop/Sanp/logo.png" alt="SnapMate Logo" class="h-16 w-auto">
+    </div>
+      <h2 class="text-4xl font-bold text-orange-500 text-center" style="font-family: 'Playfair Display', serif;">
+          Choose your photographer
+      </h2>
+        <button onclick="window.location.href='Sanpmate.html'" class="bg-orange-500 text-white px-4 py-2 rounded-md">Back to Home</button>
+    </nav>
+
+    <div class="max-w-6xl mx-auto grid grid-cols-12 gap-6 p-6">
+        <!-- 左侧筛选栏 -->
+        <aside class="col-span-3 bg-white p-4 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold">Filters</h2>
+
+            <!-- Location 筛选 -->
+            <label class="block mt-3 font-medium">Location</label>
+            <input type="text" id="filter-location" class="p-2 border rounded w-full" placeholder="City, State, Zip">
+
+            <!-- Device (多选) -->
+            <label class="block mt-3 font-medium">Device</label>
+            <div class="relative">
+                <button id="device-dropdown-btn" class="p-2 border rounded w-full bg-white text-left">Select Devices ▼</button>
+                <div id="device-dropdown" class="absolute hidden w-full bg-white border rounded mt-1 p-2 shadow-md z-10">
+                    <label class="block"><input type="checkbox" value="Digit camera"> Digit camera</label>
+                    <label class="block"><input type="checkbox" value="Film"> Film</label>
+                    <label class="block"><input type="checkbox" value="Instant photo"> Instant photo</label>
+                    <label class="block"><input type="checkbox" value="CCD"> CCD</label>
+                    <label class="block"><input type="checkbox" value="Video camera"> Video camera</label>
+                    <label class="block"><input type="checkbox" value="Drone"> Drone</label>
+                </div>
+            </div>
+
+            <!-- Shooting Scene (多选) -->
+            <label class="block mt-3 font-medium">Shooting Scene</label>
+            <div class="relative">
+                <button id="scene-dropdown-btn" class="p-2 border rounded w-full bg-white text-left">Select Scenes ▼</button>
+                <div id="scene-dropdown" class="absolute hidden w-full bg-white border rounded mt-1 p-2 shadow-md z-10">
+                    <label class="block"><input type="checkbox" value="Party"> Party</label>
+                    <label class="block"><input type="checkbox" value="Travel"> Travel</label>
+                    <label class="block"><input type="checkbox" value="Graduation"> Graduation</label>
+                    <label class="block"><input type="checkbox" value="Outdoors"> Outdoors</label>
+                </div>
+            </div>
+
+            <!-- Price Range (多选) -->
+            <label class="block mt-3 font-medium">Price Range</label>
+            <div class="relative">
+                <button id="price-dropdown-btn" class="p-2 border rounded w-full bg-white text-left">Select Price ▼</button>
+                <div id="price-dropdown" class="absolute hidden w-full bg-white border rounded mt-1 p-2 shadow-md z-10">
+                    <label class="block"><input type="checkbox" value="50"> Under $50</label>
+                    <label class="block"><input type="checkbox" value="100"> Under $50</label>
+                    <label class="block"><input type="checkbox" value="150"> Under $60</label>
+                    <label class="block"><input type="checkbox" value="200"> Under $40</label>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 中间摄影师列表 -->
+        <main class="col-span-9 bg-white p-4 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold">Matching Photographers</h2>
+            <div id="results-container" class="mt-4 space-y-4">
+                <!-- 搜索结果将在这里动态填充 -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let photographers = [
+                { name: "Sky Yang", location: "Seattle", device: ["Digit camera"], scene: "Travel", price: 40, avatar: "/Users/westyu/Desktop/Sanp/sky.jpeg",portfolio: ["/Users/westyu/Desktop/Sanp/_DSC0101.JPG", "/Users/westyu/Desktop/Sanp/_DSC0055.JPG"]},
+                { name: "Simon Yan", location: "Seattle", device: ["Film"], scene: "Party", price: 50, avatar: "/Users/westyu/Desktop/Sanp/Simon.jpeg", portfolio: ["/Users/westyu/Desktop/Sanp/_DSC0014.JPG", "/Users/westyu/Desktop/Sanp/_DSC0012.JPG"]},
+                { name: "West Yu", location: "Davis", device: ["Instant photo"], scene: "Graduation", price: 50, avatar: "/Users/westyu/Desktop/Sanp/west.jpeg", portfolio: ["/Users/westyu/Desktop/Sanp/_DSC9659.jpeg", "/Users/westyu/Desktop/Sanp/_DSC9482.jpeg"] },
+                { name: "Klaus Shen", location: "Davis", device: ["Digit camera"], scene: "Outdoors", price: 65, avatar: "/Users/westyu/Desktop/Sanp/Klaus.jpeg", portfolio: ["/Users/westyu/Desktop/Sanp/_DSC0067.JPG", "/Users/westyu/Desktop/Sanp/_DSC0050.JPG"] },
+                { name: "Jade Gong", location: "Los Angeles", device: ["Digit camera"], scene: "Travel", price: 60, avatar: "/Users/westyu/Desktop/Sanp/jade.jpg", portfolio: ["/Users/westyu/Desktop/Sanp/jade1.jpg", "/Users/westyu/Desktop/Sanp/jade2.jpg"] },
+                { name: "Lisa Li", location: "New Yoryk city", device: ["Digit camera"], scene: "Any type", price: 60, avatar: "/Users/westyu/Desktop/Sanp/lisa.png", portfolio: ["/Users/westyu/Desktop/Sanp/lisa3.jpg", "/Users/westyu/Desktop/Sanp/lisa4.jpg"] }
+            ];
+        
+
+            function getCheckedValues(dropdownId) {
+                return Array.from(document.querySelectorAll(`#${dropdownId} input:checked`)).map(input => input.value);
+            }
+
+            function filterPhotographers() {
+                let location = document.getElementById("filter-location").value.toLowerCase().trim();
+                let selectedDevices = getCheckedValues("device-dropdown");
+                let selectedScenes = getCheckedValues("scene-dropdown");
+                let selectedPrices = getCheckedValues("price-dropdown").map(p => parseInt(p));
+
+                let filteredPhotographers = photographers.filter(p => {
+                    let matchLocation = location ? p.location.toLowerCase().includes(location) : true;
+                    let matchDevice = selectedDevices.length ? selectedDevices.some(device => p.device.includes(device)) : true;
+                    let matchScene = selectedScenes.length ? selectedScenes.includes(p.scene) : true;
+                    let matchPrice = selectedPrices.length ? selectedPrices.some(price => p.price <= price) : true;
+                    return matchLocation && matchDevice && matchScene && matchPrice;
+                });
+
+                let resultsContainer = document.getElementById("results-container");
+                resultsContainer.innerHTML = "";
+
+                if (filteredPhotographers.length === 0) {
+                    resultsContainer.innerHTML = `<p class="text-center text-gray-600 text-lg">No photographers found.</p>`;
+                } else {
+                    filteredPhotographers.forEach(p => {
+                        let card = `
+                            <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+                                <!-- 左侧：头像和信息 -->
+                                <div class="flex items-center space-x-4">
+                                    <img src="${p.avatar}" alt="${p.name}" class="w-16 h-16 rounded-full object-cover border border-gray-300">
+
+                                    <div class="flex-1">
+                                        <a href="${p.name.toLowerCase().replace(/\s+/g, '-')}.html"
+                                            class="bg-orange-500 text-white px-3 py-1 rounded-md text-sm font-semibold shadow-md hover:bg-orange-600 transition">
+                                                ${p.name}
+                                        </a>
+                                        <p class="text-orange-600">Price: $${p.price}/h</p>
+                                        <p class="text-orange-800 font-bold">${p.scene}</p>
+                                        <p class="text-orange-500 text-sm">Device: ${p.device.join(", ")}</p>
+                                    </div>
+                                </div>
+                                <!-- 右侧：作品集 -->
+                                <div class="flex space-x-2 max-h-32 overflow-hidden">
+                                    ${p.portfolio.map(img => `<img src="${img}" class="w-auto max-h-32 rounded-lg object-cover">`).join("")}
+                                </div>
+                            </div>
+                        `;
+                        resultsContainer.innerHTML += card;
+                    });
+                }
+            }
+        
+
+
+            function setupDropdown(buttonId, dropdownId) {
+                document.getElementById(buttonId).addEventListener("click", function() {
+                    document.getElementById(dropdownId).classList.toggle("hidden");
+                });
+
+                document.querySelectorAll(`#${dropdownId} input`).forEach(checkbox => {
+                    checkbox.addEventListener("change", function() {
+                        let selectedValues = getCheckedValues(dropdownId);
+                        document.getElementById(buttonId).innerText = selectedValues.length ? selectedValues.join(", ") + " ▼" : "Select Options ▼";
+                        filterPhotographers();
+                    });
+                });
+            }
+
+            setupDropdown("device-dropdown-btn", "device-dropdown");
+            setupDropdown("scene-dropdown-btn", "scene-dropdown");
+            setupDropdown("price-dropdown-btn", "price-dropdown");
+
+            document.getElementById("filter-location").addEventListener("input", filterPhotographers);
+
+            filterPhotographers();
+        });
+    </script>
+    <!-- Swiper.js JavaScript -->
+</body>
+</html>
