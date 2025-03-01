@@ -31,7 +31,7 @@
     <div id="need-section" class="block">
         <section class="max-w-4xl mx-auto bg-white p-6 shadow-md rounded-lg mt-10">
             <h2 class="text-4xl font-bold text-orange-500 text-center" style="font-family: 'Playfair Display', serif;">
-               Don’t Let Moments Slip Away—Snap Them with SnapMate.
+                Don’t Let Moments Slip Away—Snap Them with SnapMate.
             </h2>
             <p class="text-lg text-orange-500 text-center mt-2" style="font-family: 'Cinzel', sans-serif;">
                 Book your personal photographer for a low price!
@@ -174,6 +174,37 @@
           </div>
       </div>
   </section>
+
+    <!-- 流程框 -->
+    <section class="max-w-6xl mx-auto mt-16 mb-16 text-center">
+        <h2 class="text-3xl font-bold text-orange-500">How It Works</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+        
+            <!-- 步骤 1 -->
+            <div class="bg-orange-50 p-6 rounded-lg shadow-md">
+                <img src="https://i.postimg.cc/6Qp0v55F/temp-Image-El-Mvdv.avif" alt="Search Icon" class="w-24 mx-auto opacity-70">
+                <h3 class="text-xl text-orange-500 font-semibold mt-4">1. Search</h3>
+                <p class="text-gray-600 mt-2"> You can find the perfect photographer based on your shooting scene and equipment needs. Whether it’s solo travel photo, party, portrait photography, or wedding and aerial photography, we offer professionals equipped with Digital cameras, film cameras, drones, and more to meet your specific requirements and capture every unforgettable moment. </p>
+            </div>
+
+            <!-- 步骤 2 -->
+            <div class="bg-orange-50 p-6 rounded-lg shadow-md">
+                <img src="https://i.postimg.cc/brkHhZ3S/temp-Imageh5p3-WW.avif" alt="Book Icon" class="w-24 mx-auto opacity-70">
+                <h3 class="text-xl text-orange-500 font-semibold mt-4">2. Photographers' detial</h3>
+                <p class="text-gray-600 mt-2">Browse through a list of amateur photographers that match your needs, exploring their profiles, photography equipment, user reviews, and portfolios to better understand their style and creative approach. Whether you’re looking for natural light portraits, vintage film aesthetics, urban street photography, or aerial shots, you’ll find passionate and creative photographers who can make your shoot unique and personalized.</p>
+            </div>
+
+            <!-- 步骤 3 -->
+            <div class="bg-orange-50 p-6 rounded-lg shadow-md">
+                <img src="https://i.postimg.cc/0Q60VWSf/temp-Imageo-Fg04g.avif" alt="Relax Icon" class="w-24 mx-auto opacity-70">
+                <h3 class="text-xl text-orange-500 font-semibold mt-4">3. Book & Chat</h3>
+                <p class="text-gray-600 mt-2">After selecting your preferred photographer, you can book and contact them directly to discuss shooting details, style preferences, and scheduling. Communicate via chat or call to finalize the plan, ensuring everything meets your expectations for a smooth and enjoyable photography experience.</p>
+            </div>
+
+        </div>
+    </section>
+
+
     </div>
 
     <!-- "I am photographer" 界面（默认隐藏） -->
@@ -190,7 +221,7 @@
               <input type="text" class="p-3 border rounded w-full h-12" placeholder="Input your Email">
           </div>
           <div class="mt-4">
-              <button class="bg-orange-500 text-white px-6 py-3 rounded w-full hover:bg-orange-600">Become our photographer</button>
+              <button class="bg-orange-500 text-white px-6 py-3 rounded w-full hover:bg-orange-600">BECOME OUR PHOTOGRAPHER</button>
           </div>
       </section>
 
@@ -237,7 +268,7 @@
     
             <!-- 左侧房源图片（圆形） -->
             <div class="w-20 h-20 rounded-full overflow-hidden">
-                <img src="https://i.postimg.cc/Rh8JWHyc/temp-Image2rlm-IT.avif" alt="房源图片" class="w-full h-full object-cover">
+                <img src="https://i.postimg.cc/RFLTJXLw/temp-Image3l3t4-I.avif" alt="房源图片" class="w-full h-full object-cover">
             </div>
 
             <!-- 右侧文本信息 -->
@@ -254,7 +285,7 @@
     
             <!-- 左侧房源图片（圆形） -->
             <div class="w-20 h-20 rounded-full overflow-hidden">
-                <img src="https://i.postimg.cc/RFLTJXLw/temp-Image3l3t4-I.avif" alt="房源图片" class="w-full h-full object-cover">
+                <img src="https://i.postimg.cc/Rh8JWHyc/temp-Image2rlm-IT.avif" alt="房源图片" class="w-full h-full object-cover">
             </div>
 
             <!-- 右侧文本信息 -->
@@ -293,7 +324,7 @@
             selectedDevices.forEach(device => params.append("device", device));
 
             // 跳转到新的搜索结果页面
-            window.location.href = "results.html?" + params.toString();
+            window.location.href = "Sanpmate.html?" + params.toString();
         });
         document.getElementById("select-all-devices").addEventListener("change", function() {
             let checkboxes = document.querySelectorAll(".device-checkbox");
