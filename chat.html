@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat with Photographers</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body class="bg-gray-100 flex h-screen">
 
@@ -56,6 +58,29 @@
             <div></div> <!-- 占位，让标题居中 -->
         </nav>
 
+        <!-- 摄影师详细信息 (添加日历) -->
+        <div id="photographerDetails" class="p-4 bg-white border-b shadow-sm flex justify-between items-center">
+            <!-- 左侧 摄影师信息 -->
+            <div class="flex items-center">
+                <img id="photographerAvatar" src="https://i.postimg.cc/15GNmfMN/temp-Imagen-Ssc-Mt.avif" class="w-16 h-16 rounded-full mr-4">
+                <div>
+                    <p id="photographerName" class="text-lg font-semibold">Sky Yang</p>
+                    <p id="photographerRating" class="text-sm text-gray-600">⭐⭐⭐⭐⭐ (60 reviews)</p>
+                    <p id="photographerBio" class="text-sm text-gray-700">Seattle-based photographer with portrait and event expertise.</p>
+                    <p id="photographerPrice" class="text-sm"><strong>Price:</strong> $50/hour | $170/half day</p>
+                    <p id="photographerDevice" class="text-sm"><strong>Device:</strong> FUJI XT4</p>
+                </div>
+            </div>
+
+            <!-- 右侧 日历 (Flatpickr) -->
+            <div class="calendar-container">
+                <input type="text" id="calendar" class="border rounded p-2 text-sm w-48" placeholder="Select a date">
+                <p id="bookingStatus" class="text-sm font-semibold mt-2 text-gray-600">Select a date to check availability</p>
+            </div>
+        </div>
+
+    
+
         <!-- 聊天窗口 -->
         <div id="chatContainer" class="flex-1 flex flex-col p-4 overflow-y-auto">
             <div id="chatMessages" class="space-y-2"></div>
@@ -69,20 +94,7 @@
             </button>
         </div>
 
-        <!-- 摄影师详细信息 -->
-        <div id="photographerDetails" class="p-4 border-t bg-gray-100">
-            <h3 class="text-lg font-semibold text-gray-800">Photographer Info</h3>
-            <div class="flex items-center space-x-4 mt-2">
-                <img id="photographerAvatar" src="https://i.postimg.cc/15GNmfMN/temp-Imagen-Ssc-Mt.avif" class="w-16 h-16 rounded-full">
-                <div>
-                    <p id="photographerName" class="font-semibold">Sky Yang</p>
-                    <p id="photographerRating">⭐⭐⭐⭐⭐ (60 reviews)</p>
-                </div>
-            </div>
-            <p id="photographerBio" class="text-sm text-gray-700 mt-2">Seattle-based photographer with portrait and event expertise.</p>
-            <p id="photographerPrice" class="text-sm"><strong>Price:</strong> $50/hour | $170/half day</p>
-            <p id="photographerDevice" class="text-sm"><strong>Device:</strong> FUJI XT4</p>
-        </div>
+        
     </div>
 
     <script>
@@ -123,6 +135,30 @@
             document.getElementById("photographerDevice").innerHTML = `<strong>Device:</strong> ${device}`;
             document.getElementById("chatMessages").innerHTML = `<div class="text-gray-600 text-center italic">Say hi to ${name}!</div>`;
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // 假设这些日期摄影师不可用
+            const unavailableDates = ["2025-03-10", "2025-03-15", "2025-03-20"];
+
+            flatpickr("#calendar", {
+                enableTime: false,
+                dateFormat: "Y-m-d",
+                minDate: "today",
+                onChange: function (selectedDates, dateStr) {
+                    const bookingStatus = document.getElementById("bookingStatus");
+
+                    if (unavailableDates.includes(dateStr)) {
+                        bookingStatus.innerText = "❌ Not Available on " + dateStr;
+                        bookingStatus.classList.remove("text-green-600");
+                        bookingStatus.classList.add("text-red-600");
+                    } else {
+                        bookingStatus.innerText = "✅ Available on " + dateStr;
+                        bookingStatus.classList.remove("text-red-600");
+                        bookingStatus.classList.add("text-green-600");
+                    }
+                }
+            });
+        });
     </script>
 
 </body>
