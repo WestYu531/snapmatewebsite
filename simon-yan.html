@@ -38,14 +38,39 @@
             <h3 class="text-xl font-semibold">Service Information</h3>
             <p class="text-gray-700">UW student with great photography experience, also offering city tours in Seattle.</p>
             <p><strong>Device:</strong> Canon film camera</p>
-            <p><strong>Price:</strong> $30/hour $100/half day</p>
+            <p><strong>Price:</strong> $50/hour $170/half day</p>
             <p><strong>Photography Scene:</strong> Any type</p>
         </div>
 
-        <!-- 右上角预约日历 -->
-        <div class="absolute top-0 right-4 bg-white p-2 rounded-lg shadow-lg w-64 z-50">
-            <h3 id="calendar-title" class="text-lg font-bold mb-2"></h3>
-            <div class="grid grid-cols-7 gap-1 text-center" id="calendar-grid"></div>
+        <!--预约卡片-->>
+        <div class="absolute top-2 right-4 bg-white p-3 rounded-lg shadow-lg w-96 h-80 border border-gray-200">
+            <!-- 总价 -->
+            <div class="text-xl font-semibold text-orange-500 mb-4">
+                Choose time
+            </div>
+        
+            <!-- 日期选择 -->
+            <div class="border p-3 rounded-lg mb-4">
+                <label for="date-select" class="block text-gray-600 text-sm">date</label>
+                <input type="date" id="date-select" class="w-full border-none focus:ring-0 text-lg">
+            </div>
+        
+            <!-- 开始时间选择 -->
+            <div class="border p-3 rounded-lg mb-4">
+                <label for="start-time" class="block text-gray-600 text-sm">start time</label>
+                <select id="start-time" class="w-full border-none focus:ring-0 text-lg">
+                    <!-- JavaScript 动态填充 -->
+                </select>
+            </div>
+        
+            <!-- 结束时间选择 -->
+            <div class="border p-3 rounded-lg mb-4">
+                <label for="end-time" class="block text-gray-600 text-sm">end time</label>
+                <select id="end-time" class="w-full border-none focus:ring-0 text-lg">
+                    <option value="">select start time first</option>
+                </select>
+            </div>
+        
         </div>
 
     
@@ -143,62 +168,56 @@
    
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const calendarGrid = document.getElementById("calendar-grid");
-            const calendarTitle = document.getElementById("calendar-title");
+            const dateSelect = document.getElementById("date-select");
+            const startTimeSelect = document.getElementById("start-time");
+            const endTimeSelect = document.getElementById("end-time");
+            const bookBtn = document.getElementById("book-btn");
 
-            const today = new Date();
-            const currentYear = today.getFullYear();
-            const currentMonth = today.getMonth();
-            const currentDay = today.getDate();
-            
-            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            calendarTitle.innerText = `${monthNames[currentMonth]} ${currentYear}`;
+            // 生成时间段 08:00 AM - 08:00 PM（每 30 分钟）
+            function generateTimeOptions() {
+                startTimeSelect.innerHTML = ""; // 清空旧选项
+                for (let hour = 8; hour <= 22; hour++) {
+                    for (let min of [0, 30]) {
+                        let time = new Date();
+                        time.setHours(hour, min);
+                        let timeString = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-            // 获取本月第一天是星期几
-            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-
-            // 生成星期标题
-            const weekDays = ["S", "M", "T", "W", "R", "F", "S"];
-            weekDays.forEach(day => {
-                const div = document.createElement("div");
-                div.classList.add("text-gray-500");
-                div.innerText = day;
-                calendarGrid.appendChild(div);
-            });
-
-            // 生成空白占位
-            for (let i = 0; i < firstDay; i++) {
-                const emptyDiv = document.createElement("div");
-                emptyDiv.classList.add("text-gray-300");
-                calendarGrid.appendChild(emptyDiv);
+                        let option = document.createElement("option");
+                        option.value = timeString;
+                        option.innerText = timeString;
+                        startTimeSelect.appendChild(option);
+                    }
+                }
             }
+            generateTimeOptions();
 
-            // 生成日期
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dateDiv = document.createElement("div");
-                dateDiv.innerText = day;
-                dateDiv.classList.add("text-gray-500", "rounded-md", "p-1", "text-center", "text-xs", "w-6", "h-6");
+            // 监听 Start Time 变化，更新 End Time
+            startTimeSelect.addEventListener("change", function () {
+                endTimeSelect.innerHTML = ""; // 清空旧选项
+                let startTimeIndex = startTimeSelect.selectedIndex;
+                if (startTimeIndex === -1) return;
 
-                // 判断是否是过去的日期
-                if (day < currentDay) {
-                    dateDiv.classList.add("bg-gray-200", "cursor-not-allowed");
-                } else {
-                    dateDiv.classList.add("bg-green-400", "text-white", "cursor-pointer", "select-date");
+                // 生成从 Start Time 之后的时间选项
+                for (let i = startTimeIndex + 1; i < startTimeSelect.options.length; i++) {
+                    let option = startTimeSelect.options[i].cloneNode(true);
+                    endTimeSelect.appendChild(option);
+                }
+            });
+            // 监听预约按钮
+            bookBtn.addEventListener("click", function () {
+                let selectedDate = dateSelect.value;
+                let selectedStartTime = startTimeSelect.value;
+                let selectedEndTime = endTimeSelect.value;
+
+                if (!selectedDate || !selectedStartTime || !selectedEndTime) {
+                    alert("请完整选择日期、开始时间和结束时间");
+                    return;
                 }
 
-                calendarGrid.appendChild(dateDiv);
-            }
-
-            // 监听可预约日期的点击事件
-            document.querySelectorAll('.select-date').forEach(date => {
-                date.addEventListener('click', function () {
-                    document.querySelectorAll('.select-date').forEach(d => d.classList.remove('bg-blue-500'));
-                    this.classList.add('bg-blue-500');
-                    alert('You selected: ' + this.innerText);
-                });
+                alert(`预约成功：${selectedDate} ${selectedStartTime} - ${selectedEndTime}`);
             });
         });
+    
     </script>
 
 
