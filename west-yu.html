@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Page - SnapMate</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Flatpickr 日期选择 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
 </head>
 <body class="bg-gray-100">
 
@@ -28,9 +34,6 @@
                 <p>⭐⭐⭐⭐⭐ (60 reviews)</p>
                 <p class="text-gray-600">Davis, CA</p>
             </div>
-            <a href="chat.html" class="bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:bg-orange-600">
-                contact West
-            </a>
         </div>
 
          <!-- 服务信息 -->
@@ -42,35 +45,40 @@
             <p><strong>Photography Scene:</strong> Any type</p>
         </div>
 
-        <!--预约卡片-->>
-        <div class="absolute top-2 right-4 bg-white p-3 rounded-lg shadow-lg w-96 h-80 border border-gray-200">
-            <!-- 总价 -->
-            <div class="text-xl font-semibold text-orange-500 mb-4">
-                Choose time
+        <!-- 预约卡片 -->
+        <div class="absolute top-2 right-4 bg-white p-4 rounded-lg shadow-lg w-80 border border-gray-200">
+            <div class="flex justify-between items-center mb-4">
+                <div class="text-lg font-semibold text-orange-500">Choose Time</div>
+                <a href="chat.html" class="bg-orange-500 text-white px-3 py-2 rounded-md text-sm">
+                    Book Now
+                </a>
             </div>
-        
+
             <!-- 日期选择 -->
-            <div class="border p-3 rounded-lg mb-4">
-                <label for="date-select" class="block text-gray-600 text-sm">date</label>
-                <input type="date" id="date-select" class="w-full border-none focus:ring-0 text-lg">
+            <div class="border p-3 rounded-lg mb-4 cursor-pointer" onclick="openDatePicker()">
+                <label class="block text-gray-600 text-sm">Date</label>
+                <strong id="selectedDateText">Choose a date</strong>
+                <input type="hidden" id="date-select">
             </div>
-        
-            <!-- 开始时间选择 -->
-            <div class="border p-3 rounded-lg mb-4">
-                <label for="start-time" class="block text-gray-600 text-sm">start time</label>
-                <select id="start-time" class="w-full border-none focus:ring-0 text-lg">
-                    <!-- JavaScript 动态填充 -->
-                </select>
+
+            <!-- 时间选择（横向排列） -->
+            <div class="flex space-x-4 mb-4">
+                <!-- 开始时间 -->
+                <div class="flex-1 border p-2 rounded-lg">
+                    <label for="start-time" class="block text-gray-600 text-sm">Start</label>
+                    <select id="start-time" class="w-full border-none focus:ring-0 text-lg"></select>
+                </div>
+
+                <!-- 结束时间 -->
+                <div class="flex-1 border p-2 rounded-lg">
+                    <label for="end-time" class="block text-gray-600 text-sm">End</label>
+                    <select id="end-time" class="w-full border-none focus:ring-0 text-lg">
+                        <option value="">Select start time first</option>
+                    </select>
+                </div>
             </div>
-        
-            <!-- 结束时间选择 -->
-            <div class="border p-3 rounded-lg mb-4">
-                <label for="end-time" class="block text-gray-600 text-sm">end time</label>
-                <select id="end-time" class="w-full border-none focus:ring-0 text-lg">
-                    <option value="">select start time first</option>
-                </select>
-            </div>
-        
+
+            
         </div>
 
     
@@ -166,16 +174,37 @@
     </div>
    
    
+    <!-- Flatpickr 日期选择 -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <script>
+        function openDatePicker() {
+            flatpickr("#date-select", {
+                dateFormat: "Y/m/d", // 只格式化为 YYYY/MM/DD
+                onClose: function(selectedDates) {
+                    if (selectedDates.length > 0) {
+                        // 获取 YYYY/MM/DD 格式
+                        let formattedDate = selectedDates[0].getFullYear() + '/' + 
+                                            (selectedDates[0].getMonth() + 1) + '/' + 
+                                            selectedDates[0].getDate();
+
+                        // **更新 UI**
+                        document.getElementById("selectedDateText").textContent = formattedDate; 
+
+                        // **仅存储值，不影响 UI**
+                        document.getElementById("date-select").value = selectedDates[0].toISOString().split('T')[0]; 
+                    }
+                }
+            }).open();
+        }
         document.addEventListener("DOMContentLoaded", function () {
-            const dateSelect = document.getElementById("date-select");
             const startTimeSelect = document.getElementById("start-time");
             const endTimeSelect = document.getElementById("end-time");
             const bookBtn = document.getElementById("book-btn");
 
             // 生成时间段 08:00 AM - 08:00 PM（每 30 分钟）
             function generateTimeOptions() {
-                startTimeSelect.innerHTML = ""; // 清空旧选项
+                startTimeSelect.innerHTML = ""; 
                 for (let hour = 8; hour <= 22; hour++) {
                     for (let min of [0, 30]) {
                         let time = new Date();
@@ -193,7 +222,7 @@
 
             // 监听 Start Time 变化，更新 End Time
             startTimeSelect.addEventListener("change", function () {
-                endTimeSelect.innerHTML = ""; // 清空旧选项
+                endTimeSelect.innerHTML = ""; 
                 let startTimeIndex = startTimeSelect.selectedIndex;
                 if (startTimeIndex === -1) return;
 
@@ -203,9 +232,10 @@
                     endTimeSelect.appendChild(option);
                 }
             });
+
             // 监听预约按钮
             bookBtn.addEventListener("click", function () {
-                let selectedDate = dateSelect.value;
+                let selectedDate = document.getElementById("date-select").value;
                 let selectedStartTime = startTimeSelect.value;
                 let selectedEndTime = endTimeSelect.value;
 
@@ -217,9 +247,8 @@
                 alert(`预约成功：${selectedDate} ${selectedStartTime} - ${selectedEndTime}`);
             });
         });
-    
-    </script>
 
+    </script>
 
 </body>
 </html>
