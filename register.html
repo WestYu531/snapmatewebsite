@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photographer Registration | SnapMate</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #e67e22;
+      margin-bottom: 30px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 40px;
+    }
+
+    form label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .checkbox-group label {
+      font-weight: normal;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      background-color: #e67e22;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #d35400;
+    }
+
+    .login-link {
+      grid-column: 1 / -1;
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .login-link a {
+      color: #e67e22;
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    .login-link button {
+      background-color: #bdc3c7;
+      color: #2c3e50;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .login-link button:hover {
+      background-color: #95a5a6;
+    }
+
+    @media (max-width: 768px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Register as a Photographer</h2>
+    <form action="#" method="POST" enctype="multipart/form-data">
+      <div>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+
+      <div>
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" required>
+      </div>
+
+      <div class="full-width">
+        <label for="avatar">Upload Your Avatar</label>
+        <input type="file" id="avatar" name="avatar" accept="image/*" required>
+      </div>
+
+      <div class="full-width">
+        <label>Device (Select all that apply)</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="device" value="digital-camera"> Digital camera</label>
+          <label><input type="checkbox" name="device" value="film-camera"> Film camera</label>
+          <label><input type="checkbox" name="device" value="instant-photo"> Instant photo</label>
+          <label><input type="checkbox" name="device" value="ccd"> CCD</label>
+          <label><input type="checkbox" name="device" value="video-camera"> Video camera</label>
+          <label><input type="checkbox" name="device" value="drone"> Drone</label>
+          <label><input type="checkbox" name="device" value="vlogging-camera"> Vlogging camera</label>
+          <label><input type="checkbox" name="device" value="other"> Other</label>
+        </div>
+      </div>
+
+      <div class="full-width">
+        <label>Photography Expertise</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="category" value="portrait"> Portrait</label>
+          <label><input type="checkbox" name="category" value="landscape"> Landscape</label>
+          <label><input type="checkbox" name="category" value="wedding"> Wedding</label>
+          <label><input type="checkbox" name="category" value="commercial"> Commercial</label>
+          <label><input type="checkbox" name="category" value="other"> Other</label>
+        </div>
+      </div>
+
+      <div class="full-width">
+        <label for="portfolio">Portfolio Link (Optional)</label>
+        <input type="url" id="portfolio" name="portfolio" placeholder="Enter your portfolio link">
+      </div>
+
+      <div class="full-width">
+        <label for="portfolioFiles">Upload Portfolio Files (Optional)</label>
+        <input type="file" id="portfolioFiles" name="portfolioFiles[]" multiple accept="image/*,application/pdf">
+      </div>
+
+      <div class="full-width">
+        <label for="bio">Short Bio (Optional)</label>
+        <textarea id="bio" name="bio" rows="3" placeholder="Tell us about yourself..."></textarea>
+      </div>
+
+      <div class="full-width">
+        <label><input type="checkbox" name="terms" value="agreed" required> I agree to the Terms of Service & Privacy Policy</label>
+      </div>
+
+      <button type="submit" class="full-width">Register</button>
+
+      <div class="login-link">
+        Already have an account? <a href="#">Sign in here</a>
+        <br/>
+        <button type="button" onclick="window.location.href='index.html'">← Back to Home</button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
